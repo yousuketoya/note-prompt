@@ -5,25 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>note専用プロンプト</title>
+
+    <!-- ファビコン・Webアイコン設定 -->
+    <link rel="icon" href="./icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./icon.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        note: {
-                            DEFAULT: '#2cb696',
-                            hover: '#24997e',
-                            light: '#eef9f6',
-                            border: '#d2f0e8',
-                            dark: '#1e7a65'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+
     <!-- Google Gen AI SDK -->
     <script type="importmap">
       {
@@ -32,26 +21,20 @@
         }
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-    </style>
 </head>
 
-<body class="bg-slate-50 h-screen flex flex-col justify-between text-slate-800">
+<body class="bg-slate-50 h-screen flex flex-col">
 
     <!-- ヘッダー -->
-    <header class="bg-white border-b border-slate-200 p-4 shadow-sm flex justify-between items-center max-w-3xl w-full mx-auto rounded-b-xl sticky top-0 z-20">
-        <div class="flex items-center space-x-2">
-            <div class="w-3 h-6 bg-note rounded-full"></div>
-            <h1 class="font-bold text-lg text-slate-800 tracking-tight">note専用プロンプト</h1>
+    <header
+        class="bg-emerald-600 text-white p-4 shadow-md flex justify-between items-center max-w-3xl w-full mx-auto rounded-b-xl">
+        <div class="flex items-center gap-2">
+            <img src="./icon.png" alt="Icon" class="w-7 h-7 rounded-lg object-cover border border-emerald-400">
+            <h1 class="font-bold text-lg">note専用プロンプト</h1>
         </div>
         <button id="open-settings"
-            class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 font-medium border border-slate-300">
-            <span>⚙️</span>
-            <span>APIキー設定</span>
+            class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+            ⚙️ APIキー設定
         </button>
     </header>
 
@@ -60,51 +43,47 @@
         <!-- 初期メッセージ -->
         <div class="flex items-start space-x-3">
             <div class="flex flex-col items-center flex-shrink-0">
-                <div class="bg-note text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shadow-sm">
-                    AI
-                </div>
+                <img src="./icon.png" alt="AI" class="w-8 h-8 rounded-full border border-emerald-300 object-cover">
+                <span class="text-[10px] font-bold text-emerald-600 mt-0.5">AI</span>
             </div>
-            <div class="bg-note-light p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-note-border text-slate-800 max-w-lg leading-relaxed text-sm sm:text-base">
-                こんにちは！「スキ」やコメントがたくさん集まり、最後まで読まれるnote記事を作るための「鈴木式プロンプト」を作成します。
-                <br><br>
-                まずは、あなたがnoteで発信したいテーマやターゲット読者について教えていただけますか？
+            <div
+                class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 text-slate-800 max-w-lg leading-relaxed text-sm">
+                こんにちは！noteで読者の目を引き、最後まで読まれて「スキ」やコメントが届く、最強の「鈴木式プロンプト」を一緒に作成します✨<br><br>
+                まずは、どのようなテーマや内容でnote記事を書きたいか教えてください！
             </div>
         </div>
     </main>
 
     <!-- 入力エリア -->
-    <footer class="bg-white border-t border-slate-200 p-3 sm:p-4 shadow-lg sticky bottom-0 z-10">
-        <form id="chat-form" class="max-w-3xl mx-auto flex gap-2 items-end">
-            <textarea id="user-input" placeholder="回答を入力してください... (Shift+Enterで改行)" rows="1"
-                class="flex-1 border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-note focus:border-note text-sm sm:text-base resize-none max-h-32 transition-all"
-                required></textarea>
+    <footer class="bg-white border-t border-slate-200 p-4 shadow-lg">
+        <form id="chat-form" class="max-w-3xl mx-auto flex gap-2">
+            <input type="text" id="user-input" placeholder="回答を入力してください..."
+                class="flex-1 border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                autocomplete="off" required>
             <button type="submit"
-                class="bg-note hover:bg-note-hover text-white px-5 py-2.5 rounded-xl font-bold transition-all text-sm flex-shrink-0 shadow-sm h-[42px] flex items-center justify-center">
+                class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-medium transition-colors text-sm">
                 送信
             </button>
         </form>
     </footer>
 
     <!-- APIキー設定モーダル -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+    <div id="settings-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 hidden z-50">
         <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">
-            <div class="flex justify-between items-center mb-2">
-                <h2 class="text-lg font-bold text-slate-800">Gemini APIキー設定</h2>
-                <button id="close-modal-x" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+            <div class="flex items-center gap-2 mb-2">
+                <img src="./icon.png" alt="Icon" class="w-6 h-6 rounded-md">
+                <h2 class="text-lg font-bold text-slate-800">Gemini APIキーの設定</h2>
             </div>
-            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
-                Gemini APIキーを設定することで、AIとの対話を通してあなたの要望を分析し、最適なnote特化型プロンプトを自動生成します。<br>
-                ※キーはブラウザのローカルストレージにのみ保存されます。
-            </p>
+            <p class="text-xs text-slate-500 mb-4">入力されたAPIキーはブラウザのローカルストレージにのみ保存され、外部サーバーには送信されません。</p>
             <input type="password" id="api-key-input" placeholder="AIzaSy..."
-                class="w-full border border-slate-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-note text-sm">
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
             <div class="flex justify-end gap-2">
                 <button id="close-settings"
-                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm transition-colors font-medium">
+                    class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm transition-colors">
                     キャンセル
                 </button>
                 <button id="save-api-key"
-                    class="bg-note hover:bg-note-hover text-white px-4 py-2 rounded-lg text-sm transition-colors font-bold shadow-sm">
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                     保存する
                 </button>
             </div>
@@ -116,26 +95,22 @@
         import { GoogleGenAI } from "@google/genai";
 
         const systemInstruction = `
-あなたは「note.com」での発信・マーケティングに精通した優秀なプロンプトエンジニア兼編集者です。
-ユーザーと会話を行い、noteでクリックされ、完読され、「スキ」やコメントが集まりやすい記事を作成させるための「鈴木式プロンプト」を作成するのがあなたの目的です。
+あなたは「noteでフォロワーを惹きつけるプロのWeb編集者／プロンプトエンジニア」です。
+ユーザーと対話しながら、note.comで読まれ、「スキ」やコメントが届く最高の『鈴木式プロンプト』を作成してください。
 
-ヒアリング・収集したい主要な7項目：
-1. 【目的】ゴールと成果物（例：タイトル5選、完読される本文、スキ・コメントを促す末尾）
-2. 【対象】ターゲット読者（悩み、感情・状態、読了後の変化）
-3. 【依頼内容】具体的なテーマ、伝えたい核心メッセージ、実体験や失敗エピソード
-4. 【役割・キャラクター設定】語り手の雰囲気、語尾・トーン（例：温かみがある／親しみやすい／専門的）
-5. 【形式・追加要件】構成ルール（共感の導入、H2/H3目次、ストーリー構成【体験→気づき→提案】、読後の後味、問いかけ）
-6. 【参考やヒント】入れたいキーワードや参考URL
-7. 【レビュー＆改善要請】AI自身が必要に応じ追加の質問をするルール
+【ヒアリング・情報収集の流れ】
+最初から一気に聞かず、対話形式で以下の情報を1〜2問ずつ深掘りして確認してください：
+1. 【対象】読者の悩み、現在の感情状態、読了後の変化
+2. 【依頼内容】テーマ、伝えたい気づき/メッセージ、実体験エピソード
+3. 【役割・キャラクター】語り手の雰囲気や文体（トーン＆マナー）
 
-【対話ルール】
-- 最初にすべての項目を一気に聞かず、ユーザーの回答を温かく受け止めながら、1〜2つずつ会話形式で質問・ヒアリングを行ってください。
-- ユーザーの要望から必要な情報が十分に揃ったと判断したら、会話の最後で必ず以下の【命令書】フォーマットに完全に当てはめた完成版の「note専用 鈴木式プロンプト」を出力してください。
+【最終プロンプトの出力条件】
+ユーザーから必要な情報が十分に揃ったら、会話の最後に必ず以下の【命令書】フォーマットに完全に落とし込んだプロンプトを出力してください。
 
-【出力フォーマット（完成プロンプト出力時）】
+【出力フォーマット】
 【命令書】
 あなたは「noteでフォロワーを惹きつけるプロのWebライター／編集者」として行動してください。
-以下の手順・制約・目的に基づき、思わずクリックしたくなり、最後まで読まれ、「スキ」やコメントが届く最高のnote記事を作成してください。
+以下の手順・制約・目的に基づき、思わずクリックしたくなり、最後まで読まれ、「スキ」やコメントが届く最高のnote記事（または構成案）を作成してください。
 
 1.【目的】
 ・思わずクリックしたくなる魅惑的な「タイトル案（5選）」の作成
@@ -143,19 +118,19 @@
 ・読者が「スキ」を押しやすくなり、コメントを残したくなる「末尾の問いかけ／まとめ」の設定
 
 2.【対象（ターゲット読者）】
-・悩みの整理:（ここに具体化したターゲットの悩みを記載）
-・読者の現在の感情・状態:（ここに感情・状態を記載）
-・読了後の変化:（ここに目指す変化を記載）
+・どんな悩みを抱えている人か：（入力内容を反映）
+・読者の現在の感情・状態：（入力内容を反映）
+・読了後にどうなってほしいか：（入力内容を反映）
 
 3.【依頼内容】
 以下のテーマ・エピソードをもとに、note記事を作成してください。
-・記事のテーマ:（テーマ）
-・込めて伝えたい想い・気づき:（核心メッセージ）
-・入れるべき具体例や実体験:（エピソード）
+・記事のテーマ：（入力内容を反映）
+・込めて伝えたい想い・気づき：（入力内容を反映）
+・入れるべき具体例や実体験：（入力内容を反映）
 
 4.【役割・キャラクター設定】
-・語り手の雰囲気／語尾・トーン:（トーン・口調）
-・視点：一人称は「私（僕）」とし、読者への語りかけを意識する
+・語り手の雰囲気／語尾・トーン：（入力内容を反映）
+・視点：一人称は「私（僕）」とし、読者への呼びかけを意識する
 
 5.【形式・追加要件】
 ①タイトル：感情を動かすキーワードを含め、30文字程度で5案提示する
@@ -163,41 +138,26 @@
 ③目次・見出し：H2・H3見出しを活用し、テンポよく読める長さに章立てする
 ④ストーリー構成：【体験談・失敗談】→【そこからの気づき】→【読者への応用・提案】の流れるような展開にする
 ⑤読後感・エンゲージメント促進：
-　・読んだあとに温かい気持ちや前向きな変化が残る文章にする
-　・記事の最後に、読者がコメントしやすくなるような「一言の問いかけ」を入れる
+ ・読んだあとに温かい気持ちや前向きな変化が残る文章にする
+ ・記事の最後に、読者がコメントしやすくなるような「一言の問いかけ」を入れる
 
 6.【参考やヒント】
-・入れ込みたいキーワードや補足事項
+・入れ込みたいキーワード：（主要キーワード）
 
 7.【レビュー＆改善要請】
 回答を出力する前に、もし提示された情報だけでは最高のnote記事を書くのに不足している（より魅力的なエピソードが引き出せそう等）と判断した場合は、追加で1〜3つの質問を私に投げかけてください。
 `;
 
-        // DOM Elements
+        // DOM要素
         const chatContainer = document.getElementById('chat-container');
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
         const settingsModal = document.getElementById('settings-modal');
         const openSettingsBtn = document.getElementById('open-settings');
         const closeSettingsBtn = document.getElementById('close-settings');
-        const closeModalX = document.getElementById('close-modal-x');
         const saveApiKeyBtn = document.getElementById('save-api-key');
         const apiKeyInput = document.getElementById('api-key-input');
 
-        // Auto-resize textarea
-        userInput.addEventListener('input', () => {
-            userInput.style.height = 'auto';
-            userInput.style.height = `${Math.min(userInput.scrollHeight, 128)}px`;
-        });
-
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                chatForm.dispatchEvent(new Event('submit'));
-            }
-        });
-
-        // Local Storage API Key Management
         let currentApiKey = localStorage.getItem('gemini_api_key') || '';
 
         if (!currentApiKey) {
@@ -209,9 +169,9 @@
             settingsModal.classList.remove('hidden');
         });
 
-        const closeModal = () => settingsModal.classList.add('hidden');
-        closeSettingsBtn.addEventListener('click', closeModal);
-        closeModalX.addEventListener('click', closeModal);
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsModal.classList.add('hidden');
+        });
 
         saveApiKeyBtn.addEventListener('click', () => {
             const newKey = apiKeyInput.value.trim();
@@ -221,12 +181,10 @@
             }
             localStorage.setItem('gemini_api_key', newKey);
             currentApiKey = newKey;
-            chat = getChatSession();
-            closeModal();
+            settingsModal.classList.add('hidden');
             alert('APIキーを保存しました！');
         });
 
-        // Initialize Gemini Chat Session
         function getChatSession() {
             if (!currentApiKey) return null;
             const ai = new GoogleGenAI({ apiKey: currentApiKey });
@@ -238,12 +196,11 @@
 
         let chat = getChatSession();
 
-        // Chat Submission
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             if (!currentApiKey) {
-                alert('右上の「APIキー設定」からGemini APIキーを登録してください。');
+                alert('まずは右上の「APIキー設定」からGemini APIキーを設定してください。');
                 settingsModal.classList.remove('hidden');
                 return;
             }
@@ -257,7 +214,6 @@
 
             appendMessage(message, 'user');
             userInput.value = '';
-            userInput.style.height = 'auto';
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
             const loadingId = appendLoading();
@@ -273,7 +229,7 @@
             } catch (error) {
                 console.error(error);
                 document.getElementById(loadingId).remove();
-                appendMessage('エラーが発生しました。APIキーが正しいか、または通信状況をご確認の上もう一度お試しください。', 'ai');
+                appendMessage('エラーが発生しました。APIキーが正しいか確認してください。', 'ai');
             }
 
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -291,45 +247,47 @@
                     const promptIndex = text.indexOf('【命令書】');
                     const introText = text.substring(0, promptIndex).trim();
                     const promptText = text.substring(promptIndex).trim();
-
                     const promptId = 'prompt-' + Date.now();
 
                     let htmlContent = '';
                     if (introText) {
-                        htmlContent += `<div class="bg-note-light p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-note-border text-slate-800 max-w-lg leading-relaxed text-sm sm:text-base whitespace-pre-wrap mb-3">${escapeHTML(introText)}</div>`;
+                        htmlContent += `<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 text-slate-800 max-w-lg whitespace-pre-wrap text-sm mb-3">${escapeHTML(introText)}</div>`;
                     }
 
                     htmlContent += `
-                        <div class="bg-slate-800 text-slate-100 p-4 rounded-2xl shadow-md border border-slate-700 max-w-xl w-full relative group">
-                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-700">
-                                <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">✨ 完成した鈴木式プロンプト</span>
-                                <button onclick="copyPrompt('${promptId}', this)" class="bg-note hover:bg-note-hover text-white text-xs px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1 shadow-sm">
+                        <div class="bg-slate-800 text-slate-100 p-4 rounded-2xl shadow-md border border-slate-700 max-w-xl w-full relative">
+                            <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-700">
+                                <span class="text-xs font-semibold text-emerald-400">作成されたnote専用プロンプト</span>
+                                <button onclick="copyPrompt('${promptId}', this)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded transition-colors flex items-center gap-1 font-bold">
                                     📋 全文コピー
                                 </button>
                             </div>
-                            <pre id="${promptId}" class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed text-slate-200">${escapeHTML(promptText)}</pre>
+                            <pre id="${promptId}" class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed">${escapeHTML(promptText)}</pre>
                         </div>
                     `;
 
                     wrapper.innerHTML = `
                         <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="bg-note text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shadow-sm">AI</div>
+                            <img src="./icon.png" alt="AI" class="w-8 h-8 rounded-full border border-emerald-300 object-cover">
+                            <span class="text-[10px] font-bold text-emerald-600 mt-0.5">AI</span>
                         </div>
                         <div class="max-w-xl w-full">${htmlContent}</div>
                     `;
                 } else {
                     wrapper.innerHTML = `
                         <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="bg-note text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shadow-sm">AI</div>
+                            <img src="./icon.png" alt="AI" class="w-8 h-8 rounded-full border border-emerald-300 object-cover">
+                            <span class="text-[10px] font-bold text-emerald-600 mt-0.5">AI</span>
                         </div>
-                        <div class="bg-note-light p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-note-border text-slate-800 max-w-lg leading-relaxed text-sm sm:text-base whitespace-pre-wrap">${escapeHTML(text)}</div>
+                        <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 text-slate-800 max-w-lg whitespace-pre-wrap text-sm leading-relaxed">${escapeHTML(text)}</div>
                     `;
                 }
             } else {
                 wrapper.innerHTML = `
-                    <div class="bg-slate-700 text-white p-3.5 rounded-2xl rounded-tr-none shadow-sm max-w-lg leading-relaxed text-sm sm:text-base whitespace-pre-wrap">${escapeHTML(text)}</div>
+                    <div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm max-w-lg whitespace-pre-wrap text-sm leading-relaxed">${escapeHTML(text)}</div>
                     <div class="flex flex-col items-center flex-shrink-0">
-                        <div class="bg-slate-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shadow-sm">You</div>
+                        <div class="bg-slate-700 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs">You</div>
+                        <span class="text-[10px] font-bold text-slate-500 mt-0.5">You</span>
                     </div>
                 `;
             }
@@ -343,9 +301,10 @@
             wrapper.className = `flex items-start space-x-3`;
             wrapper.innerHTML = `
                 <div class="flex flex-col items-center flex-shrink-0">
-                    <div class="bg-note text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shadow-sm">AI</div>
+                    <img src="./icon.png" alt="AI" class="w-8 h-8 rounded-full border border-emerald-300 object-cover">
+                    <span class="text-[10px] font-bold text-emerald-600 mt-0.5">AI</span>
                 </div>
-                <div class="bg-note-light p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-note-border text-slate-500 text-sm italic">と考え中...</div>
+                <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 text-slate-500 text-sm italic">プロンプトを考案中...</div>
             `;
             chatContainer.appendChild(wrapper);
             return id;
@@ -359,36 +318,19 @@
 
         window.copyPrompt = function (elementId, btnElement) {
             const textToCopy = document.getElementById(elementId).innerText;
-            
-            const copySuccess = () => {
+            navigator.clipboard.writeText(textToCopy).then(() => {
                 const originalText = btnElement.innerHTML;
                 btnElement.innerHTML = '✅ コピー完了！';
-                btnElement.classList.replace('bg-note', 'bg-emerald-600');
+                btnElement.classList.replace('bg-emerald-600', 'bg-teal-600');
 
                 setTimeout(() => {
                     btnElement.innerHTML = originalText;
-                    btnElement.classList.replace('bg-emerald-600', 'bg-note');
+                    btnElement.classList.replace('bg-teal-600', 'bg-emerald-600');
                 }, 2000);
-            };
-
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(textToCopy).then(copySuccess).catch(() => {
-                    fallbackCopy(textToCopy, copySuccess);
-                });
-            } else {
-                fallbackCopy(textToCopy, copySuccess);
-            }
+            }).catch(() => {
+                alert('コピーに失敗しました。');
+            });
         };
-
-        function fallbackCopy(text, callback) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            callback();
-        }
     </script>
 </body>
 
